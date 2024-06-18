@@ -9,6 +9,14 @@ body {
     --color-toolbar-button: black;
 }
 
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/materialicons/v67/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');
+}
+
+
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     background-color: var(--color-back);
@@ -103,6 +111,18 @@ body>#toolbar {
     margin: 0;
     width: 100%;
     background-color: var(--color-toolbar);
+}
+
+.elements {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.container {
+    margin: env(safe-area-inset-top)
+    env(safe-area-inset-right)
+    env(safe-area-inset-bottom)
+    env(safe-area-inset-left) !important;
 }
 
 @media (display-mode: standalone), (display-mode: minimal-ui) {

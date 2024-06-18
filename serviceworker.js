@@ -13,13 +13,21 @@ const assets = ["/", "styles.css", "app.js", "sw-register.js",
     // State while revalidate strategy
     self.addEventListener("fetch", event => {
         event.respondWith(
-            caches.match(event.request).then(cacheResponse => {
-                return cacheResponse || fetch(event.request).then(fetchResponse => {
-                    return caches.open("assets").then(cache => {
-                        cache.put(event.request, fetchResponse.clone());
-                        return fetchResponse;
+            caches.match(event.request)
+            .then(cacheResponse => {
+                  // Even if the response is in the cache, we fetch it
+                // and update the cache for future usage
+               const fetchPromise = fetch(event.request).then(
+                networkResponse => {
+                    caches.open("assets").then(cache => {
+                        cache.put(event.request, networkResponse.clone());
+                        return networkResponse;
                     });
+                   
                 });
+                // We use the currently cached version if its there
+                return cacheResponse || fetchPromise; // cached of a network fetch
+               
             })
         );
     });
